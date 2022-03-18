@@ -54,10 +54,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPreAutoloadDump(Event $event)
     {
-        $event->getIO()->info('This is an info message');
-        $event->getIO()->alert('This is an alert message');
-        $event->getIO()->notice('This is an notice message');
+//        $event->getIO()->info('This is an info message');
+//        $event->getIO()->alert('This is an alert message');
+//        $event->getIO()->notice('This is an notice message');
 
+        $event->getIO()->ask('This is a question?');
 
 
         $data = $this->installer->getBundleData();
