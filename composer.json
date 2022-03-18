@@ -1,7 +1,7 @@
 {
   "name": "deloachtech/package-installer",
   "type": "composer-plugin",
-  "license": "MIT",
+  "license": "proprietary",
   "autoload": {
     "psr-4": {
       "DeLoachTech\\PackageInstaller\\": "src/"
