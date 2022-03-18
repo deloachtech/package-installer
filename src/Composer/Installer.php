@@ -17,15 +17,18 @@ class Installer extends LibraryInstaller
     private $bundleData;
     private $alerts;
 
-    public function setBundleData($bundleData){
+    public function setBundleData($bundleData)
+    {
         $this->bundleData = $bundleData;
     }
 
-    public function getBundleData(){
+    public function getBundleData()
+    {
         return $this->bundleData;
     }
 
-    public function getAlerts(){
+    public function getAlerts()
+    {
         return $this->alerts;
     }
 
@@ -36,14 +39,15 @@ class Installer extends LibraryInstaller
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
-        if($alerts = $package->getExtra()['alerts']){
+        if ($alerts = $package->getExtra()['alerts']) {
             // Packages are installed out of sequence, so we'll reverse the time later.
             $time = time();
-            foreach ($alerts as $k =>$v){
-                $this->alerts[$time][] = $package->getName() .": ". $v;
+            $i = 0;
+            foreach ($alerts as $k => $v) {
+                $i++;
+                $this->alerts[$time + $i] = $package->getName() . ": " . $v;
             }
         }
-
 
 
         return parent::install($repo, $package);
