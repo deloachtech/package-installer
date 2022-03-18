@@ -65,10 +65,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $alerts = $this->installer->getAlerts();
 
         if(!empty($alerts)){
+            ksort($alerts, SORT_DESC);
             $event->getIO()->alert('Message(s) from installed packages:');
-            $event->getIO()->write(print_r($alerts,true));
+            foreach ($alerts as $time => $alert){
+                $event->getIO()->write($alert,true);
+            }
         }
-
     }
 
 
