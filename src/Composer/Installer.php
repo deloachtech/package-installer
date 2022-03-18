@@ -21,6 +21,10 @@ class Installer extends LibraryInstaller
         $this->bundleData = $bundleData;
     }
 
+    public function getBundleData(){
+        return $this->bundleData;
+    }
+
     public function getAlerts(){
         return $this->alerts;
     }
