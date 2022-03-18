@@ -43,6 +43,7 @@ class Installer extends LibraryInstaller
             // Packages are installed out of sequence, so we'll reverse the time later.
             $time = time();
             $i = 0;
+            rsort($alerts);
             foreach ($alerts as $k => $v) {
                 $i++;
                 $this->alerts[$time + $i] = $package->getName() . ": " . $v;
