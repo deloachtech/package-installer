@@ -40,14 +40,7 @@ class Installer extends LibraryInstaller
         (new Create())->createFiles($package);
 
         if ($alerts = $package->getExtra()['alerts']) {
-            // Packages are installed out of sequence, so we'll reverse the time later.
-            $time = time();
-            $i = 0;
-            rsort($alerts);
-            foreach ($alerts as $k => $v) {
-                $i++;
-                $this->alerts[$time + $i] = $package->getName() . ": " . $v;
-            }
+            $this->alerts[] = [$package->getName() => $alerts];
         }
 
 
