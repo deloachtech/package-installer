@@ -36,7 +36,13 @@ class Installer extends LibraryInstaller
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
-        $this->alerts[] = (new Alert())->getAlerts($package);
+        if($alerts = $package->getExtra()['alerts']){
+            foreach ($alerts as $k =>$v){
+                $this->alerts[] = $package->getName() .": ". $v;
+            }
+        }
+
+
 
         return parent::install($repo, $package);
     }
