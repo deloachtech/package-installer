@@ -68,7 +68,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
             $event->getIO()->alert('Message(s) from installed packages:');
 
-            ksort($alerts, SORT_DESC);
+            asort($alerts, SORT_DESC);
 
             foreach ($alerts as $k => $v) {
                 foreach ($v as $p => $a) {
