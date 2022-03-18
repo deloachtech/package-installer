@@ -1,0 +1,19 @@
+{
+  "name": "deloachtech/package-installer",
+  "type": "composer-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "DeLoachTech\\PackageInstaller\\": "src/"
+    }
+  },
+  "extra": {
+    "class": "DeLoachTech\\PackageInstaller\\Composer\\Plugin"
+  },
+  "require": {
+    "composer-plugin-api": "*"
+  },
+  "require-dev": {
+    "composer/composer": "^1.3"
+  }
+}
