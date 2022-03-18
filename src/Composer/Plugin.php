@@ -70,12 +70,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 
             ksort($alerts, SORT_DESC);
 
-            $_alerts = array_values($alerts);
-
-            foreach ($_alerts as $p => $a) {
-                $event->getIO()->write("* " . $p);
-                foreach ($a as $al) {
-                    $event->getIO()->write("    " . $al);
+            foreach ($alerts as $k => $v) {
+                foreach ($v as $p => $a) {
+                    $event->getIO()->write("* " . $p);
+                    foreach ($a as $al) {
+                        $event->getIO()->write("    " . $al);
+                    }
                 }
             }
         }
