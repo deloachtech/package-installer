@@ -58,11 +58,17 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 //        $event->getIO()->alert('This is an alert message');
 //        $event->getIO()->notice('This is an notice message');
 
-        $event->getIO()->ask('This is a question?');
-
 
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
+
+        $alerts = $this->installer->getAlerts();
+
+        if(!empty($alerts)){
+            $event->getIO()->alert('Messages from installed packages:');
+            $event->getIO()->write($alerts);
+        }
+
     }
 
 

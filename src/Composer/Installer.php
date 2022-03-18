@@ -5,6 +5,7 @@ namespace DeLoachTech\PackageInstaller\Composer;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
+use DeLoachTech\PackageInstaller\Process\Alert;
 use DeLoachTech\PackageInstaller\Process\Append;
 use DeLoachTech\PackageInstaller\Process\Bundle;
 use DeLoachTech\PackageInstaller\Process\Create;
@@ -14,13 +15,14 @@ class Installer extends LibraryInstaller
     //$project_path = \realpath($this->composer->getConfig()->get('vendor-dir').'/../').'/';
 
     private $bundleData;
+    private $alerts;
 
     public function setBundleData($bundleData){
         $this->bundleData = $bundleData;
     }
 
-    public function getBundleData(){
-        return $this->bundleData;
+    public function getAlerts(){
+        return $this->alerts;
     }
 
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
@@ -29,6 +31,8 @@ class Installer extends LibraryInstaller
         (new Bundle())->installBundles($package, $this->bundleData);
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
+
+        $this->alerts[] = (new Alert())->getAlerts($package);
 
         return parent::install($repo, $package);
     }
