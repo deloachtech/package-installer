@@ -57,15 +57,16 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
 
-        // Process alerts the installer has been assembling.
-        $alerts = $this->installer->getAlerts();
-        if (!empty($alerts)) {
+        // Process post-install-info the installer has been assembling.
+
+        $postInstallInfo = $this->installer->getPostInstallInfo();
+        if (!empty($postInstallInfo)) {
             $event->getIO()->alert('Alerts from installed deloachtech packages:');
 
-            // Composer installs package dependencies first, and we want the alerts in opposite order.
-            asort($alerts, SORT_DESC);
+            // Composer installs package dependencies first, and we want the info in the opposite order.
+            asort($postInstallInfo, SORT_DESC);
 
-            foreach ($alerts as $k => $v) {
+            foreach ($postInstallInfo as $k => $v) {
                 foreach ($v as $p => $a) {
                     $event->getIO()->write("* " . $p);
                     foreach ($a as $al) {

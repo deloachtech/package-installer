@@ -5,7 +5,6 @@ namespace DeLoachTech\PackageInstaller\Composer;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
-use DeLoachTech\PackageInstaller\Process\Alert;
 use DeLoachTech\PackageInstaller\Process\Append;
 use DeLoachTech\PackageInstaller\Process\Bundle;
 use DeLoachTech\PackageInstaller\Process\Create;
@@ -15,7 +14,7 @@ class Installer extends LibraryInstaller
     //$project_path = \realpath($this->composer->getConfig()->get('vendor-dir').'/../').'/';
 
     private $bundleData;
-    private $alerts;
+    private $postInstallInfo;
 
     public function setBundleData($bundleData)
     {
@@ -27,9 +26,9 @@ class Installer extends LibraryInstaller
         return $this->bundleData;
     }
 
-    public function getAlerts()
+    public function getPostInstallInfo()
     {
-        return $this->alerts;
+        return $this->postInstallInfo;
     }
 
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
@@ -39,8 +38,8 @@ class Installer extends LibraryInstaller
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
-        if ($alerts = $package->getExtra()['alerts']) {
-            $this->alerts[] = [$package->getName() => $alerts];
+        if ($info = $package->getExtra()['post-install-info']) {
+            $this->postInstallInfo[] = [$package->getName() => $info];
         }
 
 
