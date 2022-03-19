@@ -54,20 +54,15 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPreAutoloadDump(Event $event)
     {
-//        $event->getIO()->info('This is an info message');
-//        $event->getIO()->alert('This is an alert message');
-//        $event->getIO()->notice('This is an notice message');
-
-
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
 
+        // Process alerts the installer has been assembling.
         $alerts = $this->installer->getAlerts();
-
         if (!empty($alerts)) {
+            $event->getIO()->alert('Alerts from installed deloachtech packages:');
 
-            $event->getIO()->alert('Message(s) from installed packages:');
-
+            // Composer installs package dependencies first, and we want the alerts in opposite order.
             asort($alerts, SORT_DESC);
 
             foreach ($alerts as $k => $v) {
