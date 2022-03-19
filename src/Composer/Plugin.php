@@ -74,7 +74,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
                 foreach ($v as $p => $a) {
                     $event->getIO()->write("* " . $p);
                     foreach ($a as $al) {
-                        $event->getIO()->write("    " . $al);
+                        $event->getIO()->write("  - " . $al);
                     }
                 }
             }
