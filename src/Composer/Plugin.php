@@ -60,8 +60,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         // Process post-install-info the installer has been assembling.
 
         $postInstallInfo = $this->installer->getPostInstallInfo();
+
         if (!empty($postInstallInfo)) {
-            $event->getIO()->alert('Alerts from installed deloachtech packages:');
+
+            $event->getIO()->alert('Post-install information from deloachtech/package-installer:');
 
             // Composer installs package dependencies first, and we want the info in the opposite order.
             asort($postInstallInfo, SORT_DESC);
