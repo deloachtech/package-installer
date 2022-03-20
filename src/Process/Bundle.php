@@ -31,7 +31,6 @@ class Bundle
                 }
             }
         }
-        return $bundleData;
     }
 
 
