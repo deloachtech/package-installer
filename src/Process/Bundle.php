@@ -23,11 +23,13 @@ class Bundle
 
     public function removeBundles(PackageInterface $package, &$bundleData)
     {
+        file_put_contents('info',print_r($bundleData,true)."\n", FILE_APPEND);
+
         $extra = $package->getExtra();
         if (!empty($extra['bundle'])) {
             foreach ($extra['bundle'] as $bundle => $str) {
-                if (isset($bundleData['array'][$bundle."::class"])) {
-                    unset($bundleData['array'][$bundle."::class"]);
+                if (isset($bundleData['array'][$bundle])) {
+                    unset($bundleData['array'][$bundle]);
                 }
             }
         }
