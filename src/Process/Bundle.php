@@ -27,12 +27,7 @@ class Bundle
         if (!empty($extra['bundle'])) {
             foreach ($extra['bundle'] as $bundle => $str) {
                 if (isset($bundleData['array'][$bundle])) {
-
-                    file_put_contents('info.isset',$bundle."\n",FILE_APPEND);
-
                     unset($bundleData['array'][$bundle]);
-                }else{
-                    file_put_contents('info.not-isset',$bundle."\n",FILE_APPEND);
                 }
             }
         }
