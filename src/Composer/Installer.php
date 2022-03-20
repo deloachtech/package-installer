@@ -38,7 +38,7 @@ class Installer extends LibraryInstaller
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
-        if ($info = $package->getExtra()['post-install-info']) {
+        if ($info = $package->getExtra()['post-install-info']??[]) {
             $this->postInstallInfo[] = [$package->getName() => $info];
         }
 
