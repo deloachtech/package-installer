@@ -57,6 +57,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
 
+        if (\function_exists('opcache_invalidate')) {
+            opcache_invalidate($data['file']);
+        }
+
         // Process post-install-info the installer has been assembling.
 
         $postInstallInfo = $this->installer->getPostInstallInfo();

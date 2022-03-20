@@ -26,8 +26,8 @@ class Bundle
         $extra = $package->getExtra();
         if (!empty($extra['bundle'])) {
             foreach ($extra['bundle'] as $bundle => $str) {
-                if (isset($bundleData['array'][$bundle])) {
-                    unset($bundleData['array'][$bundle]);
+                if (isset($bundleData['array'][$bundle."::class"])) {
+                    unset($bundleData['array'][$bundle."::class"]);
                 }
             }
         }
@@ -42,17 +42,17 @@ class Bundle
             '../../config/bundles.php',
         ];
 
-        $_bundle = null;
+        $_file = null;
 
         foreach ($file as $k => $v) {
             if (file_exists($v)) {
-                $_bundle = $v;
+                $_file = $v;
                 break;
             }
         }
         return [
-            'file' => $_bundle,
-            'array' => include($_bundle)
+            'file' => $_file,
+            'array' => self::load($_file)
         ];
     }
 
@@ -72,6 +72,17 @@ class Bundle
         $contents .= "];\n";
 
         return $contents;
+    }
+
+
+    private static function load(string $file): array
+    {
+        $bundles = file_exists($file) ? (require $file) : [];
+        if (!\is_array($bundles)) {
+            $bundles = [];
+        }
+
+        return $bundles;
     }
 
 }
