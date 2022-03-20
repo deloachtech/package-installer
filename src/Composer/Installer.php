@@ -50,7 +50,6 @@ class Installer extends LibraryInstaller
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
         (new Bundle())->removeBundles($package, $this->bundleData);
-        reset($this->bundleData);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
 
