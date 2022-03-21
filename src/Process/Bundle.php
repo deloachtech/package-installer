@@ -27,7 +27,8 @@ class Bundle
         if (!empty($extra['bundle'])) {
             foreach ($extra['bundle'] as $bundle => $str) {
                 if (isset($bundleData['array'][$bundle])) {
-                    unset($bundleData['array'][$bundle]);
+                    $bundleData['array'][$bundle] = "\\\\{$bundle}";
+                    //unset($bundleData['array'][$bundle]);
                 }
             }
         }
