@@ -64,12 +64,12 @@ class Installer extends LibraryInstaller
 
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
-        if($this->pluginIsRequired){
+        if ($this->pluginIsRequired) {
             (new Bundle())->removeBundles($package, $this->bundles);
             file_put_contents($this->bundles['file'], Bundle::buildContents($this->bundles['array']));
-        }else{
-            if(!empty($package->getExtra()['bundle'])){
-                $this->io->alert($package->getName() . ' will have to be manually removed from the config/bundles.php file. This can be prevented by installing the deloachtech/package-installer before installing other deloachtech bundle packages.');
+        } else {
+            if (!empty($package->getExtra()['bundle'])) {
+                $this->io->alert($package->getName() . ' bundle(s) will have to be manually removed from the ' . $this->bundles['file'] . ' file.');
             }
         }
 
