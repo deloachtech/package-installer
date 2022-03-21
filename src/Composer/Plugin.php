@@ -12,7 +12,6 @@ use Composer\IO\IOInterface;
 use Composer\Package\Package;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
-use DeLoachTech\PackageInstaller\Process\Bundle;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
@@ -22,7 +21,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     {
         $installer = new Installer($io, $composer);
         $this->installer = $installer;
-//        $this->installer->setBundleData(Bundle::getBundleData());
 
         $composer->getInstallationManager()->addInstaller($installer);
     }
@@ -44,15 +42,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             'pre-package-update' => 'onPrePackageUpdate',
             'pre-package-uninstall' => 'onPrePackageUninstall',
             'pre-autoload-dump' => 'onPreAutoloadDump'
-//            ,
-//            'pre-pool-create'=>'onPrePoolCreate'
         ];
     }
 
-//    public function onPrePoolCreate(PackageEvent $packageEvent){
-//$ops = $packageEvent->getOperations();
-//file_put_contents('pre-pool', print_r($ops,true)."\n",FILE_APPEND);
-//    }
 
     /**
      * Packages have been installed/updated and Composer is getting ready to dump the autoload.
@@ -61,12 +53,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPreAutoloadDump(Event $event)
     {
-//        $data = $this->installer->getBundleData();
-//        file_put_contents($data['file'], Bundle::buildContents($data['array']));
-//
-//        if (\function_exists('opcache_invalidate')) {
-//            opcache_invalidate($data['file']);
-//        }
 
         // Process post-install-info the installer has been assembling.
 
@@ -109,12 +95,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function onPrePackageUninstall(PackageEvent $event)
     {
         //$package = $this->getPackage($event);
-//        $data = $this->installer->getBundleData();
-//        file_put_contents($data['file'], Bundle::buildContents($data['array']));
-//
-//        if (\function_exists('opcache_invalidate')) {
-//            opcache_invalidate($data['file']);
-//        }
     }
 
 

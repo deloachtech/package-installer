@@ -1,4 +1,5 @@
 <?php
+// Could not get the bundle logic to 'uninstall', because the plugin gets removed before the bundle package.
 
 namespace DeLoachTech\PackageInstaller\Process;
 
