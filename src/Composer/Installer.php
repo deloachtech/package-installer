@@ -29,7 +29,7 @@ class Installer extends LibraryInstaller
 
             if(!isset($requires['deloachtech/bundle-installer'])){
                 $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
-                return 0;
+                return 1;
             }
         }
 
