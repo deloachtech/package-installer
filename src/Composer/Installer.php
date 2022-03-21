@@ -6,6 +6,7 @@ use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
 use DeLoachTech\PackageInstaller\Process\Append;
+use DeLoachTech\PackageInstaller\Process\Bundle;
 use DeLoachTech\PackageInstaller\Process\Create;
 
 class Installer extends LibraryInstaller
@@ -21,6 +22,7 @@ class Installer extends LibraryInstaller
 
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+        (new Bundle())->installBundles($package);
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
@@ -35,6 +37,7 @@ class Installer extends LibraryInstaller
 
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+        (new Bundle())->removeBundles($package);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
 
