@@ -21,8 +21,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function activate(Composer $composer, IOInterface $io)
     {
         $installer = new Installer($io, $composer);
-        $this->installer = $installer;
-        $this->installer->setBundleData(Bundle::getBundleData());
+//        $this->installer = $installer;
+//        $this->installer->setBundleData(Bundle::getBundleData());
 
         $composer->getInstallationManager()->addInstaller($installer);
     }
@@ -61,12 +61,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPreAutoloadDump(Event $event)
     {
-        $data = $this->installer->getBundleData();
-        file_put_contents($data['file'], Bundle::buildContents($data['array']));
-
-        if (\function_exists('opcache_invalidate')) {
-            opcache_invalidate($data['file']);
-        }
+//        $data = $this->installer->getBundleData();
+//        file_put_contents($data['file'], Bundle::buildContents($data['array']));
+//
+//        if (\function_exists('opcache_invalidate')) {
+//            opcache_invalidate($data['file']);
+//        }
 
         // Process post-install-info the installer has been assembling.
 
@@ -109,12 +109,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function onPrePackageUninstall(PackageEvent $event)
     {
         //$package = $this->getPackage($event);
-        $data = $this->installer->getBundleData();
-        file_put_contents($data['file'], Bundle::buildContents($data['array']));
-
-        if (\function_exists('opcache_invalidate')) {
-            opcache_invalidate($data['file']);
-        }
+//        $data = $this->installer->getBundleData();
+//        file_put_contents($data['file'], Bundle::buildContents($data['array']));
+//
+//        if (\function_exists('opcache_invalidate')) {
+//            opcache_invalidate($data['file']);
+//        }
     }
 
 
