@@ -22,11 +22,14 @@ class Installer extends LibraryInstaller
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
         if($package->getType() == 'deloachtech-bundle'){
+
             $requires = $package->getRequires();
-            file_put_contents('req', $requires);
+
+            file_put_contents('req', print_r($requires,true)."\n",FILE_APPEND);
+
             if(!isset($requires['deloachtech/bundle-installer'])){
                 $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
-                return null;
+                return 0;
             }
         }
 
@@ -37,7 +40,6 @@ class Installer extends LibraryInstaller
         if (!empty($package->getExtra()['post-install-info'])) {
             $this->postInstallInfo[] = [$package->getName() => $package->getExtra()['post-install-info']];
         }
-
 
         return parent::install($repo, $package);
     }
