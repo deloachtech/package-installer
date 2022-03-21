@@ -5,6 +5,7 @@ namespace DeLoachTech\PackageInstaller\Composer;
 use Composer\Installer\LibraryInstaller;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
+use DeLoachTech\PackageInstaller\Process\Bundle;
 use DeLoachTech\PackageInstaller\Process\Append;
 use DeLoachTech\PackageInstaller\Process\Create;
 
@@ -21,17 +22,18 @@ class Installer extends LibraryInstaller
 
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
-        if($package->getType() == 'deloachtech-bundle'){
+//        if($package->getType() == 'deloachtech-bundle'){
+//
+//            $requires = $package->getRequires();
+//
+//            if(!isset($requires['deloachtech/bundle-installer'])){
+////                $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
+//                throw new \Exception('Package(s) require deloachtech/bundle-installer. Run composer require deloachtech/bundle-installer first.');
+//            }
+//        }
 
-            $requires = $package->getRequires();
 
-            if(!isset($requires['deloachtech/bundle-installer'])){
-//                $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
-                throw new \Exception('Package(s) require deloachtech/bundle-installer. Run composer require deloachtech/bundle-installer first.');
-            }
-        }
-
-
+        (new Bundle())->installBundles($package);
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
@@ -45,6 +47,7 @@ class Installer extends LibraryInstaller
 
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+        (new Bundle())->removeBundles($package);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
 
@@ -60,9 +63,9 @@ class Installer extends LibraryInstaller
         if($packageType == 'deloachtech-package'){
             return true;
         }
-        if($packageType == 'deloachtech-bundle'){
-            return true;
-        }
+//        if($packageType == 'deloachtech-bundle'){
+//            return true;
+//        }
         return false;
     }
 }
