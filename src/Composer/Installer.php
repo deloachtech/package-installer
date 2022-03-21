@@ -21,6 +21,16 @@ class Installer extends LibraryInstaller
 
     public function install(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+        if($package->getType() == 'deloachtech-bundle'){
+            $requires = $package->getRequires();
+            file_put_contents('req', $requires);
+            if(!isset($requires['deloachtech/bundle-installer'])){
+                $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
+                return null;
+            }
+        }
+
+
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
