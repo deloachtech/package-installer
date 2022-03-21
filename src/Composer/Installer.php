@@ -14,7 +14,7 @@ class Installer extends LibraryInstaller
 
     private $postInstallInfo;
 
-    public function getPostInstallInfo(): array
+    public function getPostInstallInfo(): ?array
     {
         return $this->postInstallInfo;
     }
