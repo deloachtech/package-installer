@@ -101,30 +101,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPrePackageUninstall(PackageEvent $event)
     {
-//        $package = $this->getPackage($event);
-//        $extra = $package->getExtra();
-//
-//        if (!empty($extra['bundle'])) {
-//            foreach ($extra['bundle'] as $bundle => $str) {
-//                if (isset($this->bd['array'][$bundle])) {
-//                    unset($this->bd['array'][$bundle]);
-//                }
-//            }
-//            file_put_contents($this->bd['file'], Bundle::buildContents($this->bd['array']));
-//            if (\function_exists('opcache_invalidate')) {
-//                opcache_invalidate($this->bd['file']);
-//            }
-//        }
-
-
-
         //$package = $this->getPackage($event);
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
         if (\function_exists('opcache_invalidate')) {
             opcache_invalidate($data['file']);
         }
-
     }
 
 
