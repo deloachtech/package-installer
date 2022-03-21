@@ -15,10 +15,14 @@ class Installer extends LibraryInstaller
 
     private $postInstallInfo;
     private $bundles;
+    private $pluginIsRequired;
 
 
     public function init()
     {
+        $requires = $this->composer->getPackage()->getRequires();
+        file_put_contents('foo',print_r($requires,true));
+
         $this->bundles = Bundle::getBundleData();
     }
 

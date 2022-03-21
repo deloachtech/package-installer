@@ -57,7 +57,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function onPreAutoloadDump(Event $event)
     {
 
-
         if($bundles = $this->installer->getBundles()){
             file_put_contents($bundles['file'], Bundle::buildContents($bundles['array']));
         }

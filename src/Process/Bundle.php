@@ -23,6 +23,9 @@ class Bundle
 
     public function removeBundles(PackageInterface $package, &$bundles)
     {
+        // The installer can be uninstalled before the packages! (If not 'required' first.)
+
+
         $extra = $package->getExtra();
         if (!empty($extra['bundle'])) {
             foreach ($extra['bundle'] as $bundle => $str) {
