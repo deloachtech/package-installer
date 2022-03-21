@@ -32,6 +32,7 @@ class Installer extends LibraryInstaller
 //            }
 //        }
 
+        parent::install($repo, $package);
 
         (new Bundle())->installBundles($package);
         (new Append())->installAppends($package);
@@ -41,17 +42,18 @@ class Installer extends LibraryInstaller
             $this->postInstallInfo[] = [$package->getName() => $package->getExtra()['post-install-info']];
         }
 
-        return parent::install($repo, $package);
+
     }
 
 
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+
+        parent::uninstall($repo, $package);
+
         (new Bundle())->removeBundles($package);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
-
-        return parent::uninstall($repo, $package);
     }
 
 
