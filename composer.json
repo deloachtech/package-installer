@@ -1,7 +1,7 @@
 {
   "name": "deloachtech/package-installer",
   "type": "composer-plugin",
-  "description": "This proprietary Composer plugin installs deloach-package types.",
+  "description": "This proprietary Composer plugin installs deloachtech-package types.",
   "license": "proprietary",
   "autoload": {
     "psr-4": {
