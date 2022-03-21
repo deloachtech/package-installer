@@ -59,6 +59,12 @@ class Installer extends LibraryInstaller
      */
     public function supports($packageType): bool
     {
-        return ('deloachtech-package' === $packageType || 'deloachtech-bundle' === $packageType);
+        if($packageType == 'deloachtech-package'){
+            return true;
+        }
+        if($packageType == 'deloachtech-bundle'){
+            return true;
+        }
+        return false;
     }
 }
