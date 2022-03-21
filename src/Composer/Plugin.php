@@ -12,6 +12,7 @@ use Composer\IO\IOInterface;
 use Composer\Package\Package;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
+use DeLoachTech\PackageInstaller\Process\Bundle;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
@@ -21,6 +22,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     {
         $installer = new Installer($io, $composer);
         $this->installer = $installer;
+
+        $this->installer->init();
 
         $composer->getInstallationManager()->addInstaller($installer);
     }
@@ -53,6 +56,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface
      */
     public function onPreAutoloadDump(Event $event)
     {
+
+
+        if($bundles = $this->installer->getBundles()){
+            file_put_contents($bundles['file'], Bundle::buildContents($bundles['array']));
+        }
 
         // Process post-install-info the installer has been assembling.
 

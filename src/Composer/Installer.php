@@ -14,6 +14,18 @@ class Installer extends LibraryInstaller
     //$project_path = \realpath($this->composer->getConfig()->get('vendor-dir').'/../').'/';
 
     private $postInstallInfo;
+    private $bundles;
+
+
+    public function init()
+    {
+        $this->bundles = Bundle::getBundleData();
+    }
+
+    public function getBundles()
+    {
+        return $this->bundles;
+    }
 
     public function getPostInstallInfo(): ?array
     {
@@ -32,9 +44,8 @@ class Installer extends LibraryInstaller
 //            }
 //        }
 
-        parent::install($repo, $package);
 
-        (new Bundle())->installBundles($package);
+        (new Bundle())->installBundles($package, $this->bundles);
         (new Append())->installAppends($package);
         (new Create())->createFiles($package);
 
@@ -42,6 +53,7 @@ class Installer extends LibraryInstaller
             $this->postInstallInfo[] = [$package->getName() => $package->getExtra()['post-install-info']];
         }
 
+        return parent::install($repo, $package);
 
     }
 
@@ -49,11 +61,11 @@ class Installer extends LibraryInstaller
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
 
-        parent::uninstall($repo, $package);
-
-        (new Bundle())->removeBundles($package);
+        (new Bundle())->removeBundles($package, $this->bundles);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
+
+        return parent::uninstall($repo, $package);
     }
 
 
@@ -62,7 +74,7 @@ class Installer extends LibraryInstaller
      */
     public function supports($packageType): bool
     {
-        if($packageType == 'deloachtech-package'){
+        if ($packageType == 'deloachtech-package') {
             return true;
         }
 //        if($packageType == 'deloachtech-bundle'){
