@@ -26,8 +26,8 @@ class Installer extends LibraryInstaller
             $requires = $package->getRequires();
 
             if(!isset($requires['deloachtech/bundle-installer'])){
-                $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
-                throw new \Exception('Installationn failed');
+//                $this->io->alert($package->getName() . ' cannot be installed without the deloachtech/bundle-installer. (Run composer require deloachtech/bundle-installer first.)');
+                throw new \Exception('Package(s) require deloachtech/bundle-installer. Run composer require deloachtech/bundle-installer first.');
             }
         }
 
