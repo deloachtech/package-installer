@@ -104,6 +104,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
         //$package = $this->getPackage($event);
         $data = $this->installer->getBundleData();
         file_put_contents($data['file'], Bundle::buildContents($data['array']));
+
         if (\function_exists('opcache_invalidate')) {
             opcache_invalidate($data['file']);
         }
