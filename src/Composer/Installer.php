@@ -67,6 +67,10 @@ class Installer extends LibraryInstaller
         if($this->pluginIsRequired){
             (new Bundle())->removeBundles($package, $this->bundles);
             file_put_contents($this->bundles['file'], Bundle::buildContents($this->bundles['array']));
+        }else{
+            if(!empty($package->getExtra()['bundle'])){
+                $this->io->alert($package->getName() . ' will have to be manually removed from the config/bundles.php file. This can be prevented by installing the deloachtech/package-installer before installing other deloachtech bundle packages.');
+            }
         }
 
         (new Append())->removeAppends($package);
