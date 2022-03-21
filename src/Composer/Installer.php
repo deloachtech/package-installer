@@ -21,7 +21,7 @@ class Installer extends LibraryInstaller
     public function init()
     {
         $requires = $this->composer->getPackage()->getRequires();
-        file_put_contents('foo',print_r($requires,true));
+        $this->pluginIsRequired = isset($requires['deloachtech/package-installer']);
 
         $this->bundles = Bundle::getBundleData();
     }
@@ -64,8 +64,11 @@ class Installer extends LibraryInstaller
 
     public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package)
     {
+        if($this->pluginIsRequired){
+            (new Bundle())->removeBundles($package, $this->bundles);
+            file_put_contents($this->bundles['file'], Bundle::buildContents($this->bundles['array']));
+        }
 
-        (new Bundle())->removeBundles($package, $this->bundles);
         (new Append())->removeAppends($package);
         (new Create())->removeCreatedFiles($package);
 
