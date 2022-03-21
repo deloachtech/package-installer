@@ -62,7 +62,7 @@ class Installer extends LibraryInstaller
      */
     public function supports($packageType): bool
     {
-        file_put_contents('info', print_r($this->composer->getPackage()->getName()));
+        file_put_contents('info', $this->composer->getPackage()->getName()."\n",FILE_APPEND);
         return 'deloachtech-package' === $packageType;
     }
 }
