@@ -43,15 +43,16 @@ class Plugin implements PluginInterface, EventSubscriberInterface
             'pre-package-install' => 'onPrePackageInstall',
             'pre-package-update' => 'onPrePackageUpdate',
             'pre-package-uninstall' => 'onPrePackageUninstall',
-            'pre-autoload-dump' => 'onPreAutoloadDump',
-            'pre-pool-create'=>'onPrePoolCreate'
+            'pre-autoload-dump' => 'onPreAutoloadDump'
+//            ,
+//            'pre-pool-create'=>'onPrePoolCreate'
         ];
     }
 
-    public function onPrePoolCreate(PackageEvent $packageEvent){
-$ops = $packageEvent->getOperations();
-file_put_contents('pre-pool', print_r($ops,true)."\n",FILE_APPEND);
-    }
+//    public function onPrePoolCreate(PackageEvent $packageEvent){
+//$ops = $packageEvent->getOperations();
+//file_put_contents('pre-pool', print_r($ops,true)."\n",FILE_APPEND);
+//    }
 
     /**
      * Packages have been installed/updated and Composer is getting ready to dump the autoload.
