@@ -21,7 +21,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface
     public function activate(Composer $composer, IOInterface $io)
     {
         $installer = new Installer($io, $composer);
-//        $this->installer = $installer;
+        $this->installer = $installer;
 //        $this->installer->setBundleData(Bundle::getBundleData());
 
         $composer->getInstallationManager()->addInstaller($installer);
