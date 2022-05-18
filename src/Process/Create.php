@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is part of the deloachtech/package-installer package.
+ *
+ * Copyright (c) DeLoach Tech, LLC - All Rights Reserved
+ * https://deloachtech.com
+ *
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
 
 namespace DeLoachTech\PackageInstaller\Process;
 
